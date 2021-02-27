@@ -1,57 +1,73 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     private readonly float gravity = -9.81f;
 
+    [Header("Components")]
     public CharacterController controller;
 
-    [Range(1, 20)]
+    [Header("PlayerMovement")]
+    [Range(1, 60)]
     public float MovementSpeed = 5f;
 
-    [Header("Jumping")]
+    [Tooltip("Player acceleration smoothing")]
+    [Range(0, 2)]
+    public float smoothing = .2f;
+
     [Range(0, 200)]
     public float jumpForce = 30f;
+
+    [Tooltip("Amount of frames player needs to be grounded to be able to jump again")]
     [Range(0, 20)]
     public float jumpResetTimer = 5f;
+
+    [Tooltip("Multiply gravity when velocity is pointing downwards")]
     [Range(1, 5f)]
     public float fallMultiplier = 2.5f;
 
-    [Header("Physics")]
+    [Tooltip("Base gravity multiplier")]
     [Range(0.1f, 2)]
     public float gravityMultiplier = 1f;
 
-    float inputX;
-    bool jumpPressed;
+    // Player state
+    private float playerInput = 0f;
+    private bool jumpPressed = false;
+    private float framesOnGround = 0f;
+    private float velocityRef; // Reference variable used for SmoothDamp
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        CaptureUserInput();
-    }
+    void Update() => CaptureUserInput();
 
     private void CaptureUserInput()
     {
-        inputX = Input.GetAxis("Horizontal");
+        playerInput = Input.GetAxis("Horizontal");
         jumpPressed = Input.GetKey(KeyCode.Space);
     }
 
     private void FixedUpdate()
     {
-        // Vertical movement
+        HandleJumpTimer();
+        MovePlayer();
+    }
+
+    private void HandleJumpTimer()
+    {
+        if (controller.isGrounded && framesOnGround < jumpResetTimer) framesOnGround++;
+        else if (!controller.isGrounded) framesOnGround = 0f;
+    }
+
+    private float GetHorizontalMovement()
+    {
+        var desiredMovement = playerInput * MovementSpeed;
+        var horizontalSpeed = Mathf.SmoothDamp(controller.velocity.x, desiredMovement, ref velocityRef, smoothing);
+        return horizontalSpeed;
+    }
+    private float GetVerticalMovement()
+    {
+        // Handle gravity
         float verticalSpeed = controller.velocity.y;
         if (controller.isGrounded)
         {
-            // Reset speed on landing
             verticalSpeed = -0.1f;
         }
         else
@@ -60,14 +76,18 @@ public class Player : MonoBehaviour
             else verticalSpeed += gravity * gravityMultiplier;
         }
 
-        // Add jumpforce
-        if (controller.isGrounded && jumpPressed)
+        // Handle jumping
+        var canJump = controller.isGrounded && framesOnGround >= jumpResetTimer;
+        if (jumpPressed && canJump)
         {
             verticalSpeed += jumpForce;
         }
 
+        return verticalSpeed;
+    }
 
-        // Horizontal movement
-        controller.Move(new Vector2(inputX * MovementSpeed, verticalSpeed) * Time.fixedDeltaTime);
+    private void MovePlayer()
+    {
+        controller.Move(new Vector2(GetHorizontalMovement(), GetVerticalMovement()) * Time.fixedDeltaTime);
     }
 }
