@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 
     [Header("Components")]
     public CharacterController controller;
+    public Transform gameProgresser;
 
     [Header("PlayerMovement")]
     [Range(1, 60)]
@@ -30,11 +31,29 @@ public class Player : MonoBehaviour
     [Range(0.1f, 2)]
     public float gravityMultiplier = 1f;
 
+    [Range(20, 300)]
+    public float playerResetDistance = 100f;
+
     // Player state
     private float playerInput = 0f;
     private bool jumpPressed = false;
     private float framesOnGround = 0f;
     private float velocityRef; // Reference variable used for SmoothDamp
+
+    private void Start()
+    {
+        if (controller == null || gameProgresser == null)
+        {
+            throw new MissingComponentException("Missing vital components in player script!");
+        }
+
+        MovePlayerToGameProgresser();
+    }
+
+    private void MovePlayerToGameProgresser()
+    {
+        controller.transform.position = gameProgresser.position + Vector3.up * 2;
+    }
 
     void Update() => CaptureUserInput();
 
@@ -48,6 +67,7 @@ public class Player : MonoBehaviour
     {
         HandleJumpTimer();
         MovePlayer();
+        PreventPlayerOutOfBounds();
     }
 
     private void HandleJumpTimer()
@@ -89,5 +109,11 @@ public class Player : MonoBehaviour
     private void MovePlayer()
     {
         controller.Move(new Vector2(GetHorizontalMovement(), GetVerticalMovement()) * Time.fixedDeltaTime);
+    }
+
+    private void PreventPlayerOutOfBounds()
+    {
+        var distanceFromCenter = (gameProgresser.position - controller.transform.position).magnitude;
+        if (distanceFromCenter > playerResetDistance) MovePlayerToGameProgresser();
     }
 }
