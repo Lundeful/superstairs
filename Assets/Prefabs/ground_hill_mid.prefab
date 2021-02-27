@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 481701120997886599}
   - component: {fileID: 481701120997886596}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sprite_hill2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 481701122456680081}
   - component: {fileID: 481701122456680174}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 481701122668017087}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ground_hill_mid
   m_TagString: Untagged
   m_Icon: {fileID: 0}

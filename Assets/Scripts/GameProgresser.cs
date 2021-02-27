@@ -6,7 +6,7 @@ public class GameProgresser : MonoBehaviour
 {
     public CharacterController controller;
 
-    [Range(1f, 10)]
+    [Range(1f, 30)]
     public float horizontalSpeed = 4f;
     public float gravity = 10f;
     public bool shouldMove = true;

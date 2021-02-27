@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1531609284855413097}
   - component: {fileID: 1531609284855413098}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sprite_flat-mid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1531609285901039769}
   - component: {fileID: 1531609285901039768}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ground_flat_mid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
