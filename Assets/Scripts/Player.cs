@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -87,8 +88,6 @@ public class Player : MonoBehaviour
     {
         playerInput = Input.GetAxis("Horizontal");
         jumpPressed = Input.GetKey(KeyCode.Space);
-        if (Input.GetKey(KeyCode.E)) EnableSuperpower();
-        else if (Input.GetKey(KeyCode.Q)) DisableSuperpower();
     }
 
     private void FixedUpdate()
@@ -214,6 +213,7 @@ public class Player : MonoBehaviour
     {
         isAlive = false;
         Debug.Log("You died");
+        SceneManager.LoadScene("End_Game");
     }
 
     private void OnTriggerEnter(Collider other)
