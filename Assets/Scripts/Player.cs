@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Player : MonoBehaviour
     public Transform gameProgresser;
     public SpriteRenderer spriteRenderer;
     public GameObject superSprite;
+    public GameObject scoreObject;
 
     [Header("PlayerMovement")]
     [Range(1, 60)]
@@ -47,6 +49,9 @@ public class Player : MonoBehaviour
     private float velocityRef; // Reference variable used for SmoothDamp
     private Animator animator;
     private bool facingRight = true;
+    private Vector3 startPosition;
+    private float scoreFloat;
+    private bool isAlive = true;
 
     // Superpower
     private bool isSuper = false;
@@ -67,6 +72,7 @@ public class Player : MonoBehaviour
         random = new System.Random();
         groundCheck = GameObject.Find("GroundCheck").transform;
         animator = GetComponent<Animator>();
+        startPosition = gameProgresser.position;
         MovePlayerToGameProgresser();
     }
 
@@ -87,14 +93,23 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!isAlive) return;
+
         HandleJumpTimer();
         RotatePlayer();
         MovePlayer();
         PreventPlayerOutOfBounds();
         UpdateAnimatorValues();
         HandleSuperpower();
+        UpdateScore();
     }
 
+    private void UpdateScore()
+    {
+        scoreFloat = (gameProgresser.position - startPosition).magnitude;
+        var score = scoreObject.GetComponent<Text>();
+        score.text = $"Score: {(int)scoreFloat}";
+    }
 
     private void HandleJumpTimer()
     {
@@ -197,6 +212,7 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
+        isAlive = false;
         Debug.Log("You died");
     }
 

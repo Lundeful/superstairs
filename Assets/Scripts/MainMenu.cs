@@ -1,6 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -29,7 +27,7 @@ public class MainMenu : MonoBehaviour
             g--;
             b--;
             //Wait for 4 seconds
-            yield return new WaitForSeconds(0.01F);
+            yield return new WaitForSeconds(0.003F);
         }
         setScene();
     }
