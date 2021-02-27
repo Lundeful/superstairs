@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6029090581543620891
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6029090581543620889}
+  - component: {fileID: 6029090581543620890}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6029090581543620889
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6029090581543620891}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6029090581543620890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6029090581543620891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5c49f2663d8bf3478345a8ae300649a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelStartPosition: {fileID: 0}
+  player: {fileID: 0}
+  flatStart: {fileID: 3720424459568289621, guid: f1e6eb33b65169549a4fc5b03cfec3f8,
+    type: 3}
+  flatMid: {fileID: 1531609285901039775, guid: f65bf17c7fb67864f84bd366a5dc3410, type: 3}
+  stairStart: {fileID: 7039092657292200473, guid: d2a8e2af39ca87c4e9b317498b2232ef,
+    type: 3}
+  stairMid: {fileID: 481701122668017086, guid: 7a34adfc38ddaad4ebed6e9dcc0a5cce, type: 3}
+  flatStartOffset: {x: 1.615, y: 0.77, z: 0}
+  flatMidOffset: {x: 1.202, y: 0, z: 0}
+  stairStartOffset: {x: 1.845, y: 0, z: 0}
+  stairMidOffset: {x: 2.056, y: 0.768, z: 0}
