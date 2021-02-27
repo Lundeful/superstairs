@@ -34,7 +34,11 @@ public class Player : MonoBehaviour
     [Range(20, 300)]
     public float playerResetDistance = 100f;
 
+    [Range(0.1f, 10)]
+    public float groundCheckDistance = 5f;
+
     // Player state
+    private Transform groundCheck;
     private float playerInput = 0f;
     private bool jumpPressed = false;
     private float framesOnGround = 0f;
@@ -47,6 +51,7 @@ public class Player : MonoBehaviour
             throw new MissingComponentException("Missing vital components in player script!");
         }
 
+        groundCheck = GameObject.Find("GroundCheck").transform;
         MovePlayerToGameProgresser();
     }
 
