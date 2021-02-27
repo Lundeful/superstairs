@@ -44,6 +44,8 @@ public class Player : MonoBehaviour
     private float framesOnGround = 0f;
     private float velocityRef; // Reference variable used for SmoothDamp
 
+    public AudioPlayer audioPlayer;
+
     private void Start()
     {
         if (controller == null || gameProgresser == null)
@@ -105,6 +107,7 @@ public class Player : MonoBehaviour
         var canJump = controller.isGrounded && framesOnGround >= jumpResetTimer;
         if (jumpPressed && canJump)
         {
+            audioPlayer.jumpSound();
             verticalSpeed += jumpForce;
         }
 
