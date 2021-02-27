@@ -65,6 +65,11 @@ public class FallingEnemy: MonoBehaviour
 
         // Horizontal movement
         controller.Move(new Vector2(MovementSpeed, verticalSpeed) * Time.fixedDeltaTime);
+
+        // Rotation
+
+        var rotSpeed = controller.isGrounded ? 25 : 10;
+        transform.Rotate(0, 0, rotSpeed);
     }
 
     private void jump()

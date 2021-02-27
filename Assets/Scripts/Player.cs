@@ -195,12 +195,22 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void Die()
+    {
+        Debug.Log("You died");
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Drops")
         {
             EnableSuperpower();
             Destroy(other.gameObject);
+        }
+
+        if (other.tag == "Enemy")
+        {
+            if (!isSuper) Die();
         }
 
     }
