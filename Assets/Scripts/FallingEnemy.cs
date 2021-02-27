@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy: MonoBehaviour
+public class FallingEnemy: MonoBehaviour
 {
 
     private readonly float gravity = -9.81f;
@@ -31,11 +32,13 @@ public class Enemy: MonoBehaviour
     void Start()
     {
 
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
     }
 
     private void FixedUpdate()
