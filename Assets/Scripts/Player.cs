@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public CharacterController controller;
 
     [Header("PlayerMovement")]
-    [Range(1, 20)]
+    [Range(1, 60)]
     public float MovementSpeed = 5f;
 
     [Tooltip("Player acceleration smoothing")]
