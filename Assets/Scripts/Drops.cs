@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Drops: MonoBehaviour
 {
 
     private readonly float gravity = -9.81f;
+
+    public Transform gameProgresser;
 
     public CharacterController controller;
 
@@ -32,8 +31,7 @@ public class Drops: MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-
+        gameProgresser = GameObject.FindGameObjectWithTag("GameProgresser")?.transform;
     }
 
     // Update is called once per frame
@@ -42,8 +40,19 @@ public class Drops: MonoBehaviour
 
     }
 
+
+
     private void FixedUpdate()
     {
+        //if (gameProgresser)
+        //{
+        //    if ((transform.position - gameProgresser.transform.position).magnitude > 100f)
+        //    {
+        //        Debug.Log("Destroooyed drops");
+        //        Destroy(gameObject);
+        //    }
+        //}
+
         if (controller.isGrounded && framesOnGround < jumpResetTimer) framesOnGround++;
         else if (!controller.isGrounded) framesOnGround = 0f;
 
@@ -65,6 +74,8 @@ public class Drops: MonoBehaviour
 
         // Horizontal movement
         controller.Move(new Vector2(MovementSpeed, verticalSpeed) * Time.fixedDeltaTime);
+
+
     }
 
     private void jump()

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8263541808192287974}
   - component: {fileID: 8263541808192287975}
-  m_Layer: 10
+  m_Layer: 13
   m_Name: Candy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 8263541809467491738}
   - component: {fileID: 8263541809467491739}
   - component: {fileID: 8263541809467491736}
-  m_Layer: 10
+  m_Layer: 13
   m_Name: Drops
   m_TagString: Drops
   m_Icon: {fileID: 0}
@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 059e7761e778e1a4d9f4886c8687f5d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameProgresser: {fileID: 0}
   controller: {fileID: 8263541809467491741}
   MovementSpeed: 0
   jumpForce: 0
