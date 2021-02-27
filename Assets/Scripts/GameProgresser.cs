@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameProgresser : MonoBehaviour
 {
@@ -15,8 +13,6 @@ public class GameProgresser : MonoBehaviour
     void Start()
     {
         if (controller == null) controller = GetComponent<CharacterController>();
-        Physics.IgnoreLayerCollision(11, 9);
-        Physics.IgnoreLayerCollision(11, 10);
     }
 
     // Update is called once per frame

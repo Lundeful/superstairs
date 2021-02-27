@@ -4,51 +4,87 @@ using UnityEngine;
 
 public class BackgroundManager : MonoBehaviour
 {
+
     [Header("Components")]
-    public GameObject background;
-    public Transform player;
-    public Transform camera;
+    [SerializeField] GameObject background;
+    [SerializeField] GameObject player;
+    Transform tileParent;
 
-    [Header("Properties")]
-    public float tileSize = 22.5f;
-    private int stackWidth = 6;
+    private GameObject[] tiles;
+    private GameObject playerTile;
+    private int gridSize = 3;
+    private float tileSize;
 
-    private Queue<GameObject> tiles;
-    private Transform tileParent;
+    private Random random = new Random();
 
     // Start is called before the first frame update
     void Start()
     {
-        tiles = new Queue<GameObject>();
+        if (!player) Debug.LogError("Missing player component");
+
         tileParent = this.transform;
-
-        var initialPosition = player.position + Vector3.left * tileSize * 1.5f;
-
-        var firstTile = Instantiate(background, tileParent);
-        firstTile.transform.position = initialPosition;
-        tiles.Enqueue(firstTile);
-
-        for (int i = 1; i < stackWidth; i++)
+        // Generate tiles
+        tiles = new GameObject[gridSize * gridSize];
+        for (int i = 0; i < tiles.Length; i++)
         {
-            var tile = Instantiate(background, tileParent);
-            tile.transform.position = initialPosition + Vector3.right * tileSize * i;
-            tiles.Enqueue(tile);
+            tiles[i] = Instantiate(background, tileParent);
+        }
+
+        // Set default player tile and tilesize
+        playerTile = tiles[0];
+        tileSize = 22.5f;
+
+        // Place tiles
+        //UpdateTilePositions();
+        int count = 0;
+        for (int i = 0; i < gridSize; i++)
+        {
+            for (int j = 0; j < gridSize; j++)
+            {
+                Vector3 newPosition = playerTile.transform.position + new Vector3(j * tileSize - tileSize, 0, i * tileSize - tileSize);
+                tiles[count].transform.position = newPosition;
+                count++;
+            }
         }
     }
 
-    private void FixedUpdate()
+    // Update is called once per frame
+    void FixedUpdate()
     {
-        var thisPosition = this.transform.position;
-        this.transform.position =  new Vector3(camera.transform.position.x, camera.transform.position.y, thisPosition.z);
-        //var distanceToOldestTile = Mathf.Abs(player.position.x - tiles.Peek().transform.position.x);
-        //if (distanceToOldestTile > tileSize * 2)
-        //{
-        //    var tileToMove = tiles.Dequeue();
-        //    var vertDistance = Mathf.Abs((player.position.y - tiles.Peek().transform.position.y));
-        //    var moveDirection = new Vector3(stackWidth * tileSize, tileSize);
-        //    tileToMove.transform.position += Vector3.right * stackWidth * tileSize;
-        //    //tileToMove.transform.position += Vector3.up * tileSize;
-        //    tiles.Enqueue(tileToMove);
-        //}
+        Vector3 playerPosition = player.transform.position;
+        GameObject closestTile = tiles[0];
+        float closestDistance = (player.transform.position - tiles[0].transform.position).sqrMagnitude;
+        foreach (var tile in tiles)
+        {
+            float distance = (tile.transform.position - playerPosition).sqrMagnitude;
+            if (distance < closestDistance)
+            {
+                closestTile = tile;
+                closestDistance = distance;
+            }
+        }
+        if (playerTile == null || closestTile != playerTile)
+        {
+            playerTile = closestTile;
+            UpdateTilePositions();
+        }
+    }
+
+    private void UpdateTilePositions()
+    {
+        // Update tile positions
+        int count = 0;
+        for (int i = 0; i < gridSize; i++)
+        {
+            for (int j = 0; j < gridSize; j++)
+            {
+                Vector3 newPosition = playerTile.transform.position + new Vector3(j * tileSize - tileSize, i * tileSize - tileSize, 0f);
+                GameObject newTile = Instantiate(background, newPosition, Quaternion.Euler(0, 0, 0));
+                GameObject oldTile = tiles[count];
+                tiles[count] = newTile;
+                Destroy(oldTile);
+                count++;
+            }
+        }
     }
 }

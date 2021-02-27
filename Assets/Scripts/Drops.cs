@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FallingEnemy: MonoBehaviour
+public class Drops: MonoBehaviour
 {
 
     private readonly float gravity = -9.81f;
@@ -11,7 +11,7 @@ public class FallingEnemy: MonoBehaviour
     public CharacterController controller;
 
     [Range(-20, 20)]
-    public float MovementSpeed = 5f;
+    public float MovementSpeed = 0f;
 
     [Header("Jumping")]
     [Range(0, 200)]
@@ -50,11 +50,11 @@ public class FallingEnemy: MonoBehaviour
         var isGrounded = Physics.Raycast(transform.position, Vector3.down, .2f);
         // Vertical movement
         verticalSpeed = controller.velocity.y;
-        if (controller.isGrounded && framesOnGround >= jumpResetTimer)
+        if (controller.isGrounded)
         {
             // Reset speed on landing
             verticalSpeed = -0.1f;
-            jump();
+            //jump();
         }
         else
         {

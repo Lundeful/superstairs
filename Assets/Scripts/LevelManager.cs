@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
     public Transform levelStartPosition;
     public Transform player;
 
+
     [Header("Object pooling")]
     public int destroyAtDistance = 60;
     public int createAtDistance = 60;
