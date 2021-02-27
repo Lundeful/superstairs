@@ -47,7 +47,7 @@ public class MainMenu : MonoBehaviour
 
     private void setScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Prototype_Lund");
     }
 
     public void exitGame()
